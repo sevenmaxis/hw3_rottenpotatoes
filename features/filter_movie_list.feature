@@ -22,14 +22,17 @@ Background: movies have been added to database
   And  I am on the RottenPotatoes home page
   
 Scenario: restrict to movies with 'PG' or 'R' ratings
-  # enter step(s) to check the 'PG' and 'R' checkboxes
-  # enter step(s) to uncheck all other checkboxes
-  # enter step to "submit" the search form on the homepage
-  # enter step(s) to ensure that PG and R movies are visible
-  # enter step(s) to ensure that other movies are not visible
+  Given I checked the movies only of rating 'PG' or 'R'
+  When I click on sumbit
+  Then I should see movies of rating 'PG' or 'R'
+  Then I should not see movies of rating 'PG-13' or 'G'
 
 Scenario: no ratings selected
-  # see assignment
+  When I uncheck the following ratings: ratings_R ratings_PG ratings_PG-13 ratings_G
+  When I click on sumbit
+  Then I should see an empty table
 
 Scenario: all ratings selected
-  # see assignment
+  When I check the following ratings: ratings_R ratings_PG ratings_PG-13 ratings_G
+  When I click on sumbit
+  Then I should see all of the movies
